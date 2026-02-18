@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrasi Admin Internal</title>
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-box">
+        <div class="login-header">
+          <h1>🔐 Admin Registration</h1>
+          <p>Khusus staf internal Toko Online</p>
+        </div>
+
+        <div id="registerFormSection" style="padding: 30px;">
+          <form id="adminRegisterForm" onsubmit="handleAdminRegister(event)">
+            <div class="form-group">
+              <label>Nama Lengkap</label>
+              <input type="text" id="regFullName" placeholder="Nama admin" required />
+            </div>
+            <div class="form-group">
+              <label>Username Admin</label>
+              <input type="text" id="regUsername" placeholder="Username unik" required />
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" id="regPassword" placeholder="Password kuat" required />
+            </div>
+            <div class="form-group">
+              <label>Admin Secret Key</label>
+              <input type="password" id="adminSecretKey" placeholder="Masukkan kode rahasia" required />
+            </div>
+            <button type="submit" class="login-btn" style="background: #e74c3c;">Daftar Admin</button>
+          </form>
+          <p class="switch-text"><a href="login.html">Kembali ke Login</a></p>
+        </div>
+      </div>
+    </div>
+    <script src="login.js"></script>
+  </body>
+</html>

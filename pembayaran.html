@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instruksi Pembayaran - Toko Faisal Zain</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .pay-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 450px; text-align: center; }
+        .header-title { color: #2c3e50; margin-bottom: 5px; }
+        .order-id { font-size: 0.9em; color: #7f8c8d; margin-bottom: 20px; }
+        .total-amount { font-size: 24px; font-weight: bold; color: #e74c3c; background: #fdf2f2; padding: 10px; border-radius: 8px; display: inline-block; margin-bottom: 20px; }
+        .account-box { background: #f8f9fa; border: 2px solid #eef0f2; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        .account-number { font-size: 28px; font-weight: bold; color: #8e44ad; letter-spacing: 1px; display: block; margin: 10px 0; }
+        .qr-placeholder { background: #f0f0f0; width: 220px; height: 220px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; border: 2px dashed #bdc3c7; border-radius: 10px; overflow: hidden; }
+        .qr-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+        .btn-wa { background: #25d366; color: white; padding: 15px 25px; text-decoration: none; border-radius: 8px; display: block; font-weight: bold; transition: 0.3s; }
+        .btn-wa:hover { background: #1ebd5b; transform: translateY(-2px); }
+        .instruction { font-size: 0.85em; color: #34495e; line-height: 1.5; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="pay-card">
+        <h2 class="header-title">Selesaikan Pembayaran</h2>
+        <div id="displayId" class="order-id">ORD-XXXXX</div>
+
+        <div class="total-amount" id="displayTotal">Rp 0</div>
+
+        <div class="account-box">
+            <p id="methodTitle">Transfer ke Nomor OVO/DANA:</p>
+            <span class="account-number" id="displayNumber">0812-3456-7890</span>
+            <p style="font-weight: bold; margin: 0;">(Atas Nama: Toko Faisal Zain)</p>
+        </div>
+        
+        <div class="qr-placeholder">
+            <img src="assets/qris-toko.png" alt="QRIS Pembayaran" onerror="this.style.display='none'; document.getElementById('qrText').style.display='block';">
+            <span id="qrText" style="display: none; color: #95a5a6;">Scan QRIS Toko</span>
+        </div>
+
+        <p class="instruction">
+            1. Buka aplikasi E-Wallet atau M-Banking Anda.<br>
+            2. Masukkan nomor di atas atau scan QRIS.<br>
+            3. Pastikan nominal sesuai dengan total di atas.
+        </p>
+
+        <a id="waLink" href="#" class="btn-wa">Kirim Bukti Bayar (WhatsApp)</a>
+        <br>
+        <a href="index.html" style="color: #7f8c8d; text-decoration: none; font-size: 0.8em;">Kembali ke Beranda</a>
+    </div>
+
+    <script>
+        // 1. Mengambil data dari URL
+        const params = new URLSearchParams(window.location.search);
+        const orderId = params.get('id') || 'GUEST-ORDER';
+        const total = params.get('total') || '0';
+        const method = params.get('method'); // Menangkap jenis metode (VA atau EWALLET)
+
+        // 2. Fungsi Format Rupiah
+        function formatRupiah(angka) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(angka);
+        }
+
+        // 3. Logika Tampilan Berdasarkan Metode
+        const displayId = document.getElementById('displayId');
+        const displayTotal = document.getElementById('displayTotal');
+        const displayNumber = document.getElementById('displayNumber');
+        const methodTitle = document.getElementById('methodTitle');
+
+        displayId.textContent = `ID Pesanan: ${orderId}`;
+        displayTotal.textContent = formatRupiah(total);
+
+        // Ubah nomor tujuan jika metodenya adalah Virtual Account (Bank Transfer)
+        if (method === 'VA') {
+            methodTitle.textContent = "Nomor Virtual Account (Bank):";
+            displayNumber.textContent = "8806-0812-3456-7890"; // Ganti dengan nomor VA Bank Anda
+        }
+
+        // 4. Update Link WhatsApp
+        const waMessage = `Halo Admin, saya sudah melakukan pembayaran melalui ${method === 'VA' ? 'Bank Transfer' : 'E-Wallet'}.%0A%0A*ID Pesanan:* ${orderId}%0A*Total:* ${formatRupiah(total)}%0A%0ABerikut adalah lampiran bukti transfer saya:`;
+        document.getElementById('waLink').href = `https://wa.me/628123456789?text=${waMessage}`;
+    </script>
+</body>
+</html>

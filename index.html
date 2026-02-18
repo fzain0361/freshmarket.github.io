@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toko Online Sayuran dan Buah Segar</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <h1>🥬 Toko Online Fresh Market Faisal Zain</h1>
+          <div class="header-buttons">
+            <span id="userName" style="color: white; margin-right: 15px">Guest</span>
+            <button class="orders-btn" onclick="showOrders()">
+              📦 Pesanan Saya
+              <span class="orders-count" id="ordersCount">0</span>
+            </button>
+            <button class="cart-btn" onclick="toggleCart()">
+              Keranjang
+              <span class="cart-count" id="cartCount">0</span>
+            </button>
+            <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Cari produk..."
+          onkeyup="filterProducts()"
+        />
+      </div>
+
+      <div class="category-filter" id="categoryFilter"></div>
+
+      <div class="products-grid" id="productsGrid"></div>
+    </div>
+    <div class="price-note">
+    * Harga yang tertera adalah harga per kg
+</div>
+
+<div id="productsGrid" class="products-grid">
+    </div>
+    <div
+      class="cart-modal"
+      id="cartModal"
+      onclick="closeCartIfClickedOutside(event)"
+    >
+      <div class="cart-content" onclick="event.stopPropagation()">
+        <div class="cart-header">
+          <h2>Keranjang Belanja</h2>
+          <button class="close-btn" onclick="toggleCart()">Tutup</button>
+        </div>
+        <div id="cartItems"></div>
+        <div class="cart-total" id="cartTotal" style="display: none">
+          <div class="total-price">
+            Total: Rp <span id="totalPrice">0</span>
+          </div>
+          <button class="checkout-btn" onclick="checkout()">Checkout</button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="orders-modal"
+      id="ordersModal"
+      onclick="closeOrdersIfClickedOutside(event)"
+    >
+      <div class="orders-content" onclick="event.stopPropagation()">
+        <div class="orders-header">
+          <h2>📦 Pesanan Saya</h2>
+          <button class="close-btn" onclick="closeOrders()">Tutup</button>
+        </div>
+
+        <div class="orders-tabs">
+          <button class="tab-btn active" onclick="filterOrders('all')">
+            Semua
+          </button>
+          <button class="tab-btn" onclick="filterOrders('pending')">
+            Diproses
+          </button>
+          <button class="tab-btn" onclick="filterOrders('shipped')">
+            Dikirim
+          </button>
+          <button class="tab-btn" onclick="filterOrders('completed')">
+            Selesai
+          </button>
+        </div>
+
+        <div id="ordersList"></div>
+      </div>
+    </div>
+
+    <div 
+      class="cart-modal" 
+      id="paymentModal" 
+      onclick="closePaymentIfClickedOutside(event)"
+    >
+      <div class="cart-content" onclick="event.stopPropagation()">
+        <div class="cart-header">
+          <h2>Pembayaran & Pengiriman</h2>
+          <button class="close-btn" onclick="closePayment()">Batal</button>
+        </div>
+        
+        <div class="shipping-info-box" style="margin-bottom: 20px; text-align: left;">
+          <label style="display: block; font-weight: bold; margin-bottom: 5px;">Alamat Pengiriman:</label>
+          <textarea 
+            id="shippingAddress" 
+            placeholder="Masukkan Nama Penerima dan Alamat Lengkap..." 
+            style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd; font-family: inherit; resize: vertical;" 
+            rows="3"
+          ></textarea>
+          
+          <label style="display: block; font-weight: bold; margin-top: 10px; margin-bottom: 5px;">Nomor Telepon:</label>
+          <input 
+            type="tel" 
+            id="shippingPhone" 
+            placeholder="Contoh: 08123456789" 
+            style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;"
+          >
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 15px;">
+        
+        <p style="margin-bottom: 10px; color: #666; font-weight: bold;">Silakan pilih metode pembayaran:</p>
+        
+        <div class="payment-options">
+          <div class="payment-item" onclick="selectPayment('Bank Transfer')">
+            <span>🏦 Bank Transfer (Manual)</span>
+          </div>
+          <div class="payment-item" onclick="selectPayment('E-Wallet (OVO/Dana)')">
+            <span>📱 E-Wallet (OVO/Dana)</span>
+          </div>
+          <div class="payment-item" onclick="selectPayment('COD')">
+            <span>🚚 COD (Bayar di Tempat)</span>
+          </div>
+        </div>
+
+        <div class="order-summary-box" id="paymentSummary" style="margin-top: 15px; padding: 10px; background: #f9f9f9; border-radius: 5px;">
+        </div>
+
+        <button 
+          class="checkout-btn" 
+          style="background-color: #27ae60; margin-top: 20px; width: 100%;" 
+          onclick="confirmOrder()"
+        >
+          Konfirmasi Pesanan
+        </button>
+      </div>
+    </div>
+    
+    <script src="script.js"></script>
+  </body>
+</html>

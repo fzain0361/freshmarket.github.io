@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Toko Online</title>
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <div class="admin-container">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2>🛒 Admin Panel</h2>
+          <p id="adminName">Admin Toko</p>
+        </div>
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item active" onclick="showSection('dashboard')">📊 Dashboard</a>
+          <a href="#" class="nav-item" onclick="showSection('products')">📦 Kelola Produk</a>
+          <a href="#" class="nav-item" onclick="showSection('orders')">🛍️ Database Pesanan</a>
+          <a href="#" class="nav-item" onclick="showSection('customers')">👥 Pelanggan</a>
+          <a href="#" class="nav-item logout" onclick="logout()"> 🚪 Logout </a>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <header class="top-bar">
+          <h1 id="pageTitle">Dashboard</h1>
+          <div class="admin-profile">
+            <span id="currentTime"></span>
+          </div>
+        </header>
+
+        <section id="dashboard" class="content-section active">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">📦</div>
+              <div class="stat-info"><h3 id="totalProducts">10</h3><p>Total Produk</p></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🛍️</div>
+              <div class="stat-info"><h3 id="totalOrders">0</h3><p>Total Pesanan</p></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">👥</div>
+              <div class="stat-info"><h3 id="totalCustomers">0</h3><p>Total Pelanggan</p></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">💰</div>
+              <div class="stat-info"><h3 id="totalRevenue">Rp 0</h3><p>Total Pendapatan</p></div>
+            </div>
+          </div>
+
+          <div class="dashboard-charts">
+            <div class="chart-card">
+              <h3>Pesanan Terbaru</h3>
+              <div id="recentOrdersList"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="products" class="content-section">
+          <div class="section-header">
+            <h2>Kelola Produk</h2>
+            <button class="btn-primary" onclick="showAddProductForm()">+ Tambah Produk</button>
+          </div>
+
+          <div id="addProductForm" class="form-card" style="display: none">
+            <h3>Tambah Produk Baru</h3>
+            <form onsubmit="addProduct(event)">
+              <input type="hidden" id="editProductId"> <div class="form-row">
+                <div class="form-group"><label>Nama Produk</label><input type="text" id="productName" required /></div>
+                <div class="form-group"><label>Harga</label><input type="number" id="productPrice" required /></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Kategori</label>
+                  <select id="productCategory" required>
+                    <option value="Sayur Bunga">Sayuran Bunga</option>
+                    <option value="Buah">Buah</option>
+                    <option value="Sayur Daun">Sayuran Dedaunan</option>
+                    <option value="Sayur Polongan">Sayuran Bijian</option>
+                  </select>
+                </div>
+                <div class="form-group"><label>Icon (Emoji/URL)</label><input type="text" id="productIcon" placeholder="📦" required /></div>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn-primary">Simpan</button>
+                <button type="button" class="btn-secondary" onclick="hideAddProductForm()">Batal</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th><th>Icon</th><th>Nama Produk</th><th>Kategori</th><th>Harga Per (Kg)</th><th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="productsTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="orders" class="content-section">
+          <div class="section-header">
+            <h2>Database Pesanan</h2>
+            <div class="filter-buttons">
+              <button class="filter-btn active" onclick="filterAdminOrders('all')">Semua</button>
+              <button class="filter-btn" onclick="filterAdminOrders('pending')">Diproses</button>
+              <button class="filter-btn" onclick="filterAdminOrders('shipped')">Dikirim</button>
+              <button class="filter-btn" onclick="filterAdminOrders('completed')">Selesai</button>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Tanggal</th>
+                  <th>Pelanggan</th>
+                  <th style="min-width: 200px;">Pengiriman & Pembayaran</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="customers" class="content-section">
+          <div class="section-header"><h2>Daftar Pelanggan</h2></div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Username</th><th>Nama</th><th>Total Pesanan</th><th>Total Belanja</th>
+                </tr>
+              </thead>
+              <tbody id="customersTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

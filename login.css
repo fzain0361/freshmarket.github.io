@@ -1,0 +1,184 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 450px;
+  padding: 20px;
+}
+
+.login-box {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.login-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 40px 30px;
+  text-align: center;
+}
+
+.login-header h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.login-header p {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* Mengganti #loginForm menjadi padding pada container form agar seragam */
+#loginFormSection, 
+#registerFormSection {
+  padding: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #2c3e50;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.login-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.login-btn:active {
+  transform: translateY(0);
+}
+
+/* --- Tambahan untuk Switch Text --- */
+.switch-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #7f8c8d;
+}
+
+.switch-text a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.switch-text a:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+.demo-accounts {
+  background-color: #f8f9fa;
+  padding: 20px 30px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.demo-accounts h3 {
+  color: #2c3e50;
+  font-size: 16px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.account-card {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border-left: 4px solid #667eea;
+}
+
+.account-card:last-child {
+  margin-bottom: 0;
+  border-left-color: #e74c3c;
+}
+
+.account-card strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+.account-card p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #7f8c8d;
+}
+
+.account-card code {
+  background-color: #ecf0f1;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: "Courier New", monospace;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 10px;
+  }
+
+  .login-header {
+    padding: 30px 20px;
+  }
+
+  #loginFormSection,
+  #registerFormSection,
+  .demo-accounts {
+    padding: 20px;
+  }
+}
